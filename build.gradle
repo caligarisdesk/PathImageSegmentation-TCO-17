@@ -1,0 +1,30 @@
+group 'com.caligarisdesk'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'commons-io', name: 'commons-io', version: '2.5'
+    compile group: 'gov.nih.imagej', name: 'imagej', version: '1.47'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.6.2'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+jar {
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    manifest {
+        attributes 'Main-Class': 'com.caligarisdesk.pathimagesegmentation.Main'
+    }
+}
+
+mainClassName = "com.caligarisdesk.pathimagesegmentation.Main"
